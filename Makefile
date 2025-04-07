@@ -6,13 +6,14 @@
 #    By: gromiti <gromiti@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/01 17:39:27 by gromiti           #+#    #+#              #
-#    Updated: 2024/10/01 17:39:28 by gromiti          ###   ########.fr        #
+#    Updated: 2025/04/07 16:31:23 by gromiti          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SRC = src/init.c src/main.c src/utils.c
+SRC = src/actions_utils.c src/actions.c src/dinner.c src/init_utils.c \
+	  src/init.c src/main.c
 
 OBJS = $(SRC:%.c=%.o)
 

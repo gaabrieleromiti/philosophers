@@ -6,30 +6,11 @@
 /*   By: gromiti <gromiti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:31:39 by gromiti           #+#    #+#             */
-/*   Updated: 2025/04/07 15:47:44 by gromiti          ###   ########.fr       */
+/*   Updated: 2025/04/07 17:30:28 by gromiti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/philo.h"
-
-int	mutex_check(t_mutex *mutex, int alive)
-{
-	if (pthread_mutex_lock(mutex) != 0)
-	{
-		printf("Error: mutex lock failed\n");
-		return (1);
-	}
-	if (!alive)
-	{
-		if (pthread_mutex_unlock(mutex) != 0)
-		{
-			printf("Error: mutex unlock failed\n");
-			return (1);
-		}
-		return (0);
-	}
-	return (1);
-}
 
 void	dinner_routine(void *philosopher)
 {
@@ -38,10 +19,22 @@ void	dinner_routine(void *philosopher)
 	philo = (t_philo *)philosopher;
 	philo->death_time = get_time() + philo->table->t_die;
 	if (philo->id % 2 == 0)
-		
+	{
+		usleep(philo->table->t_eat / 5 * 1000);
+		if (someone_died(philo))
+			return ;
+	}
+	while (philo->table->satieted_philos != philo->table->n_philo)
+	{
+		if (someone_died(philo))
+			return ;
+		if (lets_eat(philo) || lets_sleep(philo) || lets_think(philo))
+			return ;
+	}
+	return ;
 }
 
-int	start_dinner(t_table *table)
+void	start_dinner(t_table *table)
 {
 	int	i;
 
@@ -51,7 +44,7 @@ int	start_dinner(t_table *table)
 		if (pthread_create(&table->philos[i].thread, NULL, dinner_routine, &table->philos[i]))
 		{
 			printf("Error: thread creation failed\n");
-			return (1);
+			return ;
 		}
 	}
 	i = -1;
@@ -60,7 +53,7 @@ int	start_dinner(t_table *table)
 		if (pthread_join(table->philos[i].thread, NULL))
 		{
 			printf("Error: thread join failed\n");
-			return (1);
+			return ;
 		}
 	}
 }

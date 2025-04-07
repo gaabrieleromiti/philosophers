@@ -6,11 +6,26 @@
 /*   By: gromiti <gromiti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 15:16:26 by gromiti           #+#    #+#             */
-/*   Updated: 2025/03/31 11:31:27 by gromiti          ###   ########.fr       */
+/*   Updated: 2025/04/07 17:36:57 by gromiti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/philo.h"
+
+void	clean_up(t_table *table)
+{
+	int	i;
+
+	i = -1;
+	while (++i < table->n_philo)
+		pthread_mutex_destroy(&table->forks[i].fork);
+	if (table->philos)
+		free(table->philos);
+	if (table->forks)
+		free(table->forks);
+	if (table)
+		free(table);
+}
 
 int	main(int argc, char **argv)
 {
@@ -24,6 +39,7 @@ int	main(int argc, char **argv)
 	}
 	if (init(argc, argv, table))
 		exit(1);
-	if (start_dinner(table))
-	{}
+	start_dinner(table);
+	clean_up(table);
+	return (0);
 }
