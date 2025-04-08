@@ -6,7 +6,7 @@
 /*   By: gromiti <gromiti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 17:28:40 by gromiti           #+#    #+#             */
-/*   Updated: 2025/04/07 17:00:59 by gromiti          ###   ########.fr       */
+/*   Updated: 2025/04/07 18:33:42 by gromiti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,16 @@ static void	init_table(char **argv, t_table *table)
 	else
 		table->n_meals = -1;
 	table->death = 0;
+	table->satieted_philos = 0;
+
+	// Initialize mutexes
+	if (pthread_mutex_init(&table->death_lock, NULL) != 0 ||
+		pthread_mutex_init(&table->satieted_lock, NULL) != 0 ||
+		pthread_mutex_init(&table->print_lock, NULL) != 0)
+	{
+		printf("Error: mutex init failed\n");
+		exit(1);
+	}
 }
 
 static int	init_forks(int n, t_table *table)

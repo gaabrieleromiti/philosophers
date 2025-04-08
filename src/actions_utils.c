@@ -6,7 +6,7 @@
 /*   By: gromiti <gromiti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:20:52 by gromiti           #+#    #+#             */
-/*   Updated: 2025/04/07 16:58:30 by gromiti          ###   ########.fr       */
+/*   Updated: 2025/04/08 11:54:12 by gromiti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	grab_forks(t_philo *philo)
 	if (pthread_mutex_lock(&philo->r_fork->fork))
 	{
 		pthread_mutex_unlock(&philo->l_fork->fork);
+		philo->l_fork_in_use = 0;
 		printf("Error: mutex lock failed\n");
 		return (1);
 	}
@@ -40,15 +41,15 @@ int	grab_forks(t_philo *philo)
 
 int	release_forks(t_philo *philo)
 {
-	if (philo->l_fork_in_use)
-	{
-		pthread_mutex_unlock(&philo->l_fork->fork);
-		philo->l_fork_in_use = 0;
-	}
 	if (philo->r_fork_in_use)
 	{
 		pthread_mutex_unlock(&philo->r_fork->fork);
 		philo->r_fork_in_use = 0;
+	}
+	if (philo->l_fork_in_use)
+	{
+		pthread_mutex_unlock(&philo->l_fork->fork);
+		philo->l_fork_in_use = 0;
 	}
 	return (0);
 }
@@ -58,7 +59,7 @@ int	someone_died(t_philo *philo)
 	pthread_mutex_lock(&philo->table->death_lock);
 	if (philo->table->death)
 	{
-		phtread_mutex_unlock(&philo->table->death_lock);
+		pthread_mutex_unlock(&philo->table->death_lock);
 		release_forks(philo);
 		return (1);
 	}
@@ -76,9 +77,9 @@ int	someone_died(t_philo *philo)
 
 void	print_action(t_philo *philo, char *action)
 {
-	phtread_mutex_lock(philo->table->print_lock);
+	pthread_mutex_lock(&philo->table->print_lock);
 	printf("%zu %d %s\n", get_time(), philo->id, action);
-	phtread_mutex_unlock(philo->table->print_lock);
+	pthread_mutex_unlock(&philo->table->print_lock);
 }
 
 size_t	get_time(void)

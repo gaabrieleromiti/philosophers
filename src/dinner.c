@@ -6,13 +6,13 @@
 /*   By: gromiti <gromiti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:31:39 by gromiti           #+#    #+#             */
-/*   Updated: 2025/04/07 17:30:28 by gromiti          ###   ########.fr       */
+/*   Updated: 2025/04/07 17:50:59 by gromiti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/philo.h"
 
-void	dinner_routine(void *philosopher)
+void	*dinner_routine(void *philosopher)
 {
 	t_philo	*philo;
 
@@ -22,16 +22,16 @@ void	dinner_routine(void *philosopher)
 	{
 		usleep(philo->table->t_eat / 5 * 1000);
 		if (someone_died(philo))
-			return ;
+			return (NULL);
 	}
 	while (philo->table->satieted_philos != philo->table->n_philo)
 	{
 		if (someone_died(philo))
-			return ;
+			return (NULL);
 		if (lets_eat(philo) || lets_sleep(philo) || lets_think(philo))
-			return ;
+			return (NULL);
 	}
-	return ;
+	return (NULL);
 }
 
 void	start_dinner(t_table *table)

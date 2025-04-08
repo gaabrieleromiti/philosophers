@@ -6,7 +6,7 @@
 /*   By: gromiti <gromiti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 14:19:19 by gromiti           #+#    #+#             */
-/*   Updated: 2025/04/07 16:55:16 by gromiti          ###   ########.fr       */
+/*   Updated: 2025/04/07 17:51:21 by gromiti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/time.h>
 
 typedef pthread_mutex_t t_mutex;
+typedef struct s_table t_table;
 
 typedef struct s_fork
 {
@@ -30,7 +31,6 @@ typedef struct s_fork
 typedef struct s_philo
 {
 	int			id;
-	int			last_meal;
 	int			meals_eaten;
 	int			l_fork_in_use;
 	int			r_fork_in_use;
@@ -50,7 +50,6 @@ typedef struct s_table
 	int		n_meals;
 	int		satieted_philos;
 	int		death;
-	size_t	start_time;
 	t_mutex	satieted_lock;
 	t_mutex	death_lock;
 	t_mutex	print_lock;
@@ -71,18 +70,14 @@ int		lets_sleep(t_philo *philo);
 int		lets_think(t_philo *philo);
 
 // dinner.c
-void	dinner_routine(void *philosopher);
-int		start_dinner(t_table *table);
+void	*dinner_routine(void *philosopher);
+void	start_dinner(t_table *table);
 
 // init_utils.c
 int			ft_atoi(char *s);
-static int	print_error(int i);
 int			input_check(int argc, char **argv);
 
 // init.c
-static void	init_table(char **argv, t_table *table);
-static int	init_forks(int n, t_table *table);
-static void	init_philos(int n, t_table *table);
-int			init(int argc, char **argv, t_table *table);
+int	init(int argc, char **argv, t_table *table);
 
 #endif
