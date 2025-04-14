@@ -20,7 +20,6 @@ int	lets_eat(t_philo *philo)
 	print_action(philo, "is eating");
 	usleep(philo->table->t_eat * 1000);
 	release_forks(philo);
-	print_action(philo, "released forks");
 	if (philo->table->n_meals != -1)
 	{
 		philo->meals_eaten++;
@@ -44,7 +43,7 @@ int	lets_sleep(t_philo *philo)
 	{
 		if (someone_died(philo))
 			return (1);
-		usleep(50);
+		usleep(5);
 	}
 	return (0);
 }
@@ -54,5 +53,6 @@ int	lets_think(t_philo *philo)
 	if (someone_died(philo))
 		return (1);
 	print_action(philo, "is thinking");
+	usleep(200);
 	return (0);
 }

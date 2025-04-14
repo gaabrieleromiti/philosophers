@@ -20,7 +20,7 @@ void	*dinner_routine(void *philosopher)
 	philo->death_time = get_time() + philo->table->t_die;
 	if (philo->id % 2 == 0)
 	{
-		usleep(philo->table->t_eat / 5 * 1000);
+		usleep(200);
 		if (someone_died(philo))
 			return (NULL);
 	}
