@@ -6,7 +6,7 @@
 /*   By: gromiti <gromiti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 13:27:27 by gromiti           #+#    #+#             */
-/*   Updated: 2025/04/14 22:50:46 by gromiti          ###   ########.fr       */
+/*   Updated: 2025/04/14 23:05:15 by gromiti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	lets_eat(t_philo *philo)
 	print_action(philo, "is eating");
 	usleep(philo->table->t_eat * 1000);
 	release_forks(philo);
+	print_action(philo, "released forks");
 	if (philo->table->n_meals != -1)
 	{
 		philo->meals_eaten++;
