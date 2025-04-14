@@ -6,7 +6,7 @@
 #    By: gromiti <gromiti@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/01 17:39:27 by gromiti           #+#    #+#              #
-#    Updated: 2025/04/07 18:31:07 by gromiti          ###   ########.fr        #
+#    Updated: 2025/04/14 20:44:09 by gromiti          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ OBJS = $(SRC:%.c=%.o)
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror  -g
 MAKEFLAGS += --silent
 
 RM = rm -f

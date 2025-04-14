@@ -6,7 +6,7 @@
 /*   By: gromiti <gromiti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 13:27:27 by gromiti           #+#    #+#             */
-/*   Updated: 2025/04/07 17:00:25 by gromiti          ###   ########.fr       */
+/*   Updated: 2025/04/14 22:50:46 by gromiti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,16 @@ int	lets_eat(t_philo *philo)
 
 int	lets_sleep(t_philo *philo)
 {
-	if (someone_died(philo))
-		return (1);
+	size_t	start;
+
+	start = get_time();
 	print_action(philo, "is sleeping");
-	usleep(philo->table->t_sleep * 1000);
+	while (get_time() < start + philo->table->t_sleep)
+	{
+		if (someone_died(philo))
+			return (1);
+		usleep(50);
+	}
 	return (0);
 }
 

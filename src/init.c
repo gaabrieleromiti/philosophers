@@ -6,7 +6,7 @@
 /*   By: gromiti <gromiti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 17:28:40 by gromiti           #+#    #+#             */
-/*   Updated: 2025/04/14 19:09:16 by gromiti          ###   ########.fr       */
+/*   Updated: 2025/04/14 22:21:08 by gromiti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	init_table(char **argv, t_table *table)
 		table->n_meals = ft_atoi(argv[5]);
 	else
 		table->n_meals = -1;
+	table->start = get_time();
 	table->death = 0;
 	table->satieted_philos = 0;
 
@@ -61,21 +62,18 @@ static void	init_philos(int n, t_table *table)
 	{
 		table->philos[i].id = i + 1;
 		table->philos[i].meals_eaten = 0;
-		table->philos[i].l_fork_in_use = (int *)malloc(sizeof(int));
-		table->philos[i].r_fork_in_use = (int *)malloc(sizeof(int));
-		if (!table->philos[i].l_fork_in_use || !table->philos[i].r_fork_in_use)
-		{
-			printf("Error: malloc failed\n");
-			exit(1);
-		}
+		table->philos[i].l_fork_in_use = (int *)ft_calloc(1, sizeof(int));
 		table->philos[i].death_time = 0;
-		table->philos[i].r_fork = &table->forks[i];
+		table->philos[i].l_fork = &table->forks[i];
 		if (i == n - 1)
-			table->philos[i].l_fork = &table->forks[0];
+			table->philos[i].r_fork = &table->forks[0];
 		else
-			table->philos[i].l_fork = &table->forks[i + 1];
+			table->philos[i].r_fork = &table->forks[i + 1];
 		table->philos[i].table = table;
 	}
+	table->philos[--i].r_fork_in_use = table->philos[0].l_fork_in_use;
+	while (--i >= 0)
+		table->philos[i].r_fork_in_use = table->philos[i + 1].l_fork_in_use;
 }
 
 int	init(int argc, char **argv, t_table *table)
