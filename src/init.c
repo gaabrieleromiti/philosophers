@@ -6,7 +6,7 @@
 /*   By: gromiti <gromiti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 17:28:40 by gromiti           #+#    #+#             */
-/*   Updated: 2025/04/07 18:33:42 by gromiti          ###   ########.fr       */
+/*   Updated: 2025/04/14 19:09:16 by gromiti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,13 @@ static void	init_philos(int n, t_table *table)
 	{
 		table->philos[i].id = i + 1;
 		table->philos[i].meals_eaten = 0;
-		table->philos[i].l_fork_in_use = 0;
-		table->philos[i].r_fork_in_use = 0;
+		table->philos[i].l_fork_in_use = (int *)malloc(sizeof(int));
+		table->philos[i].r_fork_in_use = (int *)malloc(sizeof(int));
+		if (!table->philos[i].l_fork_in_use || !table->philos[i].r_fork_in_use)
+		{
+			printf("Error: malloc failed\n");
+			exit(1);
+		}
 		table->philos[i].death_time = 0;
 		table->philos[i].r_fork = &table->forks[i];
 		if (i == n - 1)

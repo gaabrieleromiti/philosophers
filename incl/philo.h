@@ -6,7 +6,7 @@
 /*   By: gromiti <gromiti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 14:19:19 by gromiti           #+#    #+#             */
-/*   Updated: 2025/04/07 17:51:21 by gromiti          ###   ########.fr       */
+/*   Updated: 2025/04/14 19:13:52 by gromiti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ typedef struct s_philo
 {
 	int			id;
 	int			meals_eaten;
-	int			l_fork_in_use;
-	int			r_fork_in_use;
+	int*		l_fork_in_use;
+	int*		r_fork_in_use;
 	size_t		death_time;
 	t_fork		*l_fork;
 	t_fork		*r_fork;
@@ -75,7 +75,10 @@ void	start_dinner(t_table *table);
 
 // init_utils.c
 int			ft_atoi(char *s);
+int			print_error(int i);
 int			input_check(int argc, char **argv);
+void		*ft_calloc(size_t nmemb, size_t size);
+
 
 // init.c
 int	init(int argc, char **argv, t_table *table);

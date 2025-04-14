@@ -6,7 +6,7 @@
 /*   By: gromiti <gromiti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:48:17 by gromiti           #+#    #+#             */
-/*   Updated: 2025/04/07 16:19:46 by gromiti          ###   ########.fr       */
+/*   Updated: 2025/04/14 19:13:49 by gromiti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,20 @@ int	input_check(int argc, char **argv)
 			return (print_error(i));
 	}
 	return (0);
+}
+
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	void	*res;
+	size_t	size_tot;
+
+	size_tot = nmemb * size;
+	if (nmemb + size < size || size + nmemb < nmemb || size_tot > 2147483424)
+		return (NULL);
+	res = malloc(size_tot);
+	if (res == NULL)
+		return (NULL);
+	while (size_tot--)
+		((char *)res)[size_tot] = 0;
+	return (res);
 }
