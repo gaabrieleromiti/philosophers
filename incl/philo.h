@@ -6,7 +6,7 @@
 /*   By: gromiti <gromiti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 14:19:19 by gromiti           #+#    #+#             */
-/*   Updated: 2025/04/16 11:56:56 by gromiti          ###   ########.fr       */
+/*   Updated: 2025/04/16 17:32:58 by gromiti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-typedef pthread_mutex_t t_mutex;
-typedef struct s_table t_table;
+typedef pthread_mutex_t	t_mutex;
+typedef struct s_table	t_table;
 
 typedef struct s_fork
 {
@@ -32,8 +32,8 @@ typedef struct s_philo
 {
 	int			id;
 	int			meals_eaten;
-	int*		l_fork_in_use;
-	int*		r_fork_in_use;
+	int			*l_fork_in_use;
+	int			*r_fork_in_use;
 	size_t		death_time;
 	t_fork		*l_fork;
 	t_fork		*r_fork;
@@ -75,13 +75,12 @@ void	*dinner_routine(void *philosopher);
 void	start_dinner(t_table *table);
 
 // init_utils.c
-int			ft_atoi(char *s);
-int			input_check(int argc, char **argv);
-void		*ft_calloc(size_t nmemb, size_t size);
-size_t		get_time(void);
-
+int		ft_atoi(char *s);
+int		input_check(int argc, char **argv);
+void	*ft_calloc(size_t nmemb, size_t size);
+size_t	get_time(void);
 
 // init.c
-int	init(int argc, char **argv, t_table *table);
+int		init(int argc, char **argv, t_table *table);
 
 #endif
