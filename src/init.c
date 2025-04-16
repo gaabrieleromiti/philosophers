@@ -6,7 +6,7 @@
 /*   By: gromiti <gromiti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 17:28:40 by gromiti           #+#    #+#             */
-/*   Updated: 2025/04/14 22:21:08 by gromiti          ###   ########.fr       */
+/*   Updated: 2025/04/16 11:20:54 by gromiti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,8 @@ static void	init_table(char **argv, t_table *table)
 	table->start = get_time();
 	table->death = 0;
 	table->satieted_philos = 0;
-
-	// Initialize mutexes
-	if (pthread_mutex_init(&table->death_lock, NULL) != 0 ||
-		pthread_mutex_init(&table->satieted_lock, NULL) != 0 ||
+	if (pthread_mutex_init(&table->death_lock, NULL) != 0 || \
+		pthread_mutex_init(&table->satieted_lock, NULL) != 0 || \
 		pthread_mutex_init(&table->print_lock, NULL) != 0)
 	{
 		printf("Error: mutex init failed\n");

@@ -6,7 +6,7 @@
 /*   By: gromiti <gromiti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 14:19:19 by gromiti           #+#    #+#             */
-/*   Updated: 2025/04/14 20:35:56 by gromiti          ###   ########.fr       */
+/*   Updated: 2025/04/16 11:56:56 by gromiti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ typedef struct s_table
 }	t_table;
 
 // actions_utils.c
-int		grab_forks(t_philo *philo);
+int		grab_l_fork(t_philo *philo);
+int		grab_r_fork(t_philo *philo);
 int		release_forks(t_philo *philo);
 int		someone_died(t_philo *philo);
 void	print_action(t_philo *philo, char *action);
-size_t	get_time(void);
 
 // actions.c
 int		lets_eat(t_philo *philo);
@@ -78,6 +78,7 @@ void	start_dinner(t_table *table);
 int			ft_atoi(char *s);
 int			input_check(int argc, char **argv);
 void		*ft_calloc(size_t nmemb, size_t size);
+size_t		get_time(void);
 
 
 // init.c

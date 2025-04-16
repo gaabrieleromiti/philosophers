@@ -6,7 +6,7 @@
 /*   By: gromiti <gromiti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:48:17 by gromiti           #+#    #+#             */
-/*   Updated: 2025/04/14 19:13:49 by gromiti          ###   ########.fr       */
+/*   Updated: 2025/04/16 11:19:42 by gromiti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,16 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	while (size_tot--)
 		((char *)res)[size_tot] = 0;
 	return (res);
+}
+
+size_t	get_time(void)
+{
+	struct timeval	tv;
+
+	if (gettimeofday(&tv, NULL) == -1)
+	{
+		printf("Error: gettimeofday failed\n");
+		return (1);
+	}
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
