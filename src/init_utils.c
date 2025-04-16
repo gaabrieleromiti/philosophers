@@ -6,7 +6,7 @@
 /*   By: gromiti <gromiti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:48:17 by gromiti           #+#    #+#             */
-/*   Updated: 2025/04/16 11:19:42 by gromiti          ###   ########.fr       */
+/*   Updated: 2025/04/16 13:43:47 by gromiti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	input_check(int argc, char **argv)
 	}
 	while (argv[++i])
 	{
-		if (ft_atoi(argv[i]) < 0)
+		if (ft_atoi(argv[i]) < 0 || (i == 1 && ft_atoi(argv[i]) == 0))
 			return (print_error(i));
 	}
 	return (0);

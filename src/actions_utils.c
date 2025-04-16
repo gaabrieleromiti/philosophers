@@ -6,7 +6,7 @@
 /*   By: gromiti <gromiti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:20:52 by gromiti           #+#    #+#             */
-/*   Updated: 2025/04/16 11:19:53 by gromiti          ###   ########.fr       */
+/*   Updated: 2025/04/16 13:34:30 by gromiti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,9 @@ int	someone_died(t_philo *philo)
 	}
 	if (philo->death_time < get_time())
 	{
-		print_action(philo, "died");
 		philo->table->death = 1;
+		printf("%zu %d %s\n", get_time() - philo->table->start, \
+		philo->id, "died");
 		pthread_mutex_unlock(&philo->table->death_lock);
 		return (1);
 	}
@@ -91,12 +92,15 @@ int	someone_died(t_philo *philo)
 
 void	print_action(t_philo *philo, char *action)
 {
+	pthread_mutex_lock(&philo->table->death_lock);
 	if (!philo->table->death)
 	{
 		pthread_mutex_lock(&philo->table->print_lock);
 		printf("%zu %d %s\n", get_time() - philo->table->start, \
 		philo->id, action);
 		pthread_mutex_unlock(&philo->table->print_lock);
+		pthread_mutex_unlock(&philo->table->death_lock);
 		return ;
 	}
+	pthread_mutex_unlock(&philo->table->death_lock);
 }
