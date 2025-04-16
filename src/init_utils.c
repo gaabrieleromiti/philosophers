@@ -6,7 +6,7 @@
 /*   By: gromiti <gromiti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:48:17 by gromiti           #+#    #+#             */
-/*   Updated: 2025/04/16 13:43:47 by gromiti          ###   ########.fr       */
+/*   Updated: 2025/04/16 18:29:02 by gromiti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,10 @@ static int	print_error(int i)
 int	input_check(int argc, char **argv)
 {
 	int	i;
+	int	j;
 
 	i = 0;
+	j = 0;
 	if (argc < 5 || argc > 6)
 	{
 		printf("Error: Wrong number of arguments\n");
@@ -64,6 +66,12 @@ int	input_check(int argc, char **argv)
 	}
 	while (argv[++i])
 	{
+		while (argv[i][j])
+		{
+			if (argv[i][j] < '0' || argv[i][j] > '9')
+				return (print_error(i));
+			j++;
+		}
 		if (ft_atoi(argv[i]) < 0 || (i == 1 && ft_atoi(argv[i]) == 0))
 			return (print_error(i));
 	}
