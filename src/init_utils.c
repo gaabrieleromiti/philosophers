@@ -72,6 +72,7 @@ int	input_check(int argc, char **argv)
 				return (print_error(i));
 			j++;
 		}
+		j = 0;
 		if (ft_atoi(argv[i]) < 0 || (i == 1 && ft_atoi(argv[i]) == 0))
 			return (print_error(i));
 	}
